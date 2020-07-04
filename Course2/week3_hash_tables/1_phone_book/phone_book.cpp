@@ -56,7 +56,7 @@ public:
         }
     }
 
-    void PushBack(record rec)
+    void PushFront(record rec)
     {
         Node *n = new Node(rec);
         if (head_ == NULL)
@@ -65,12 +65,8 @@ public:
         }
         else
         {
-            Node *current_node = head_;
-            while (current_node->next_ != NULL)
-            {
-                current_node = current_node->next_;
-            }
-            current_node->next_ = n;
+            n->next_ = head_;
+            head_ = n;
         }
     }
 
@@ -152,7 +148,7 @@ private:
             while (current_node != NULL)
             {
                 int hashing_index = Hash(current_node->rec_.number_);
-                new_book[hashing_index]->PushBack(current_node->rec_);
+                new_book[hashing_index]->PushFront(current_node->rec_);
                 current_node = current_node->next_;
             }
         }
@@ -176,7 +172,7 @@ public:
         Node *found = book_[hashing_index]->Find(rec.number_);
         if (found == NULL)
         {
-            book_[hashing_index]->PushBack(rec);
+            book_[hashing_index]->PushFront(rec);
             n_keys_++;
         }
         else
